@@ -15,6 +15,8 @@ const routeCards = require('./routes/cards');
 const NotFoundError = require('./errors/NotFoundError');
 const errorHandler = require('./middlewares/errorHandler');
 
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 const { PORT = 3001 } = process.env;
 mongoose.set('strictQuery', true);
 
@@ -30,6 +32,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors);
 app.use(limiter);
+// Подключение логгера
+app.use(requestLogger);
 // Регистрация
 app.post('/signup', routeUsers);
 app.post('/signin', routeUsers);
@@ -38,6 +42,9 @@ app.use(auth);
 // Авторизированные пользователи
 app.use('/users', routeUsers);
 app.use('/cards', routeCards);
+
+// логгер ошибок
+app.use(errorLogger);
 
 app.use((req, res, next) => next(new NotFoundError('Страницы по запрошенному URL не существует')));
 
