@@ -35,6 +35,12 @@ app.use(cors);
 app.use(limiter);
 // Подключение логгера
 app.use(requestLogger);
+// Crash test
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 // Регистрация
 app.post('/signup', routeUsers);
 app.post('/signin', routeUsers);
