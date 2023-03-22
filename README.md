@@ -7,7 +7,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 84.201.174.222
+IP 84.201.174.222
 
 Frontend https://artaleal.nomoredomains.work
 
